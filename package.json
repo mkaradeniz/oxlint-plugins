@@ -4,10 +4,10 @@
   "private": true,
   "description": "Workspace for Oxlint plugins.",
   "license": "MIT",
-  "type": "module",
   "workspaces": [
     "packages/*"
   ],
+  "type": "module",
   "scripts": {
     "build": "TURBO_TELEMETRY_DISABLED=1 turbo run build",
     "check:publish-manifests": "node scripts/check-publish-manifests.mjs",
@@ -16,12 +16,17 @@
     "lint": "TURBO_TELEMETRY_DISABLED=1 turbo run lint",
     "pack:check": "TURBO_TELEMETRY_DISABLED=1 turbo run pack:check",
     "pack:dry-run": "TURBO_TELEMETRY_DISABLED=1 turbo run pack:dry-run",
+    "prepare": "husky",
     "test": "TURBO_TELEMETRY_DISABLED=1 turbo run test",
     "test:coverage": "TURBO_TELEMETRY_DISABLED=1 turbo run test:coverage",
     "typecheck": "TURBO_TELEMETRY_DISABLED=1 turbo run typecheck",
     "verify": "pnpm run typecheck && pnpm run test:coverage && pnpm run lint && pnpm run check:publish-manifests && pnpm run pack:check && pnpm run pack:dry-run"
   },
   "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^17.0.4",
+    "oxfmt": "catalog:",
+    "oxlint": "catalog:",
     "rimraf": "catalog:",
     "turbo": "^2.9.12"
   },
