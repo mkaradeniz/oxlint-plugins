@@ -60,5 +60,6 @@ jobs:
             npm publish --workspace "$name" --access public
           }
 
+          publish_package "packages/array"
           publish_package "packages/whitespace"
           publish_package "packages/react-structure"

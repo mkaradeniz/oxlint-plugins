@@ -1,6 +1,7 @@
 import { readFile } from 'node:fs/promises';
 
 const publishablePackages = [
+  'packages/array/package.json',
   'packages/whitespace/package.json',
   'packages/react-structure/package.json',
 ];
