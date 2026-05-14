@@ -9,18 +9,18 @@
   ],
   "type": "module",
   "scripts": {
-    "build": "TURBO_TELEMETRY_DISABLED=1 turbo run build --output-logs=errors-only",
+    "build": "TURBO_TELEMETRY_DISABLED=1 turbo run build",
     "check:publish-manifests": "node scripts/check-publish-manifests.mjs",
     "clean": "TURBO_TELEMETRY_DISABLED=1 turbo run clean && rimraf .turbo node_modules",
-    "format": "TURBO_TELEMETRY_DISABLED=1 turbo run format --output-logs=errors-only",
-    "lint": "TURBO_TELEMETRY_DISABLED=1 turbo run lint --output-logs=errors-only",
-    "pack:check": "TURBO_TELEMETRY_DISABLED=1 turbo run pack:check --output-logs=errors-only",
-    "pack:dry-run": "TURBO_TELEMETRY_DISABLED=1 turbo run pack:dry-run --output-logs=errors-only",
+    "format": "TURBO_TELEMETRY_DISABLED=1 turbo run format",
+    "lint": "TURBO_TELEMETRY_DISABLED=1 turbo run lint",
+    "pack:check": "TURBO_TELEMETRY_DISABLED=1 turbo run pack:check",
+    "pack:dry-run": "TURBO_TELEMETRY_DISABLED=1 turbo run pack:dry-run",
     "prepare": "husky",
-    "test": "TURBO_TELEMETRY_DISABLED=1 turbo run test --output-logs=errors-only",
-    "test:coverage": "TURBO_TELEMETRY_DISABLED=1 turbo run test:coverage --output-logs=errors-only",
-    "typecheck": "TURBO_TELEMETRY_DISABLED=1 turbo run typecheck --output-logs=errors-only",
-    "verify": "pnpm --silent run typecheck && pnpm --silent run test:coverage && pnpm --silent run lint && pnpm --silent run check:publish-manifests && pnpm --silent run pack:check && pnpm --silent run pack:dry-run"
+    "test": "TURBO_TELEMETRY_DISABLED=1 turbo run test",
+    "test:coverage": "TURBO_TELEMETRY_DISABLED=1 turbo run test:coverage",
+    "typecheck": "TURBO_TELEMETRY_DISABLED=1 turbo run typecheck",
+    "verify": "pnpm run typecheck && pnpm run test:coverage && pnpm run lint && pnpm run check:publish-manifests && pnpm run pack:check && pnpm run pack:dry-run"
   },
   "devDependencies": {
     "husky": "^9.1.7",

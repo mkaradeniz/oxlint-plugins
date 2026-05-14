@@ -91,6 +91,24 @@ const expectFix = async ({ input, output }: FixCase) => {
   await expectFixtureDiagnostics(fixture, 0);
 };
 
+const expectFixCases = async (cases: Array<FixCase>) => {
+  const fixture = await createFixtureSet({
+    inputs: cases.map(({ input }) => input),
+    ruleId,
+  });
+
+  await expect(runOxlintFix(fixture)).resolves.toBe(true);
+
+  const outputs = await Promise.all(fixture.fixturePaths.map(fixturePath => readFixture({ ...fixture, fixturePath })));
+
+  for (const [index, fixCase] of cases.entries()) {
+    expect(outputs[index], fixCase.name).toBe(fixCase.output);
+  }
+
+  await expect(runOxlintFix(fixture)).resolves.toBe(false);
+  await expectFixtureDiagnostics(fixture, 0);
+};
+
 afterEach(cleanupFixtures);
 
 describe(ruleId, () => {
@@ -204,7 +222,9 @@ describe(ruleId, () => {
       },
     ];
 
-    it.each(fixCases)('$name', expectFix);
+    it('applies exact safe fixes, preserves formatting, and is idempotent', async () => {
+      await expectFixCases(fixCases);
+    });
 
     const noFixCases: Array<ReportCase> = [
       {
@@ -367,7 +387,9 @@ describe(ruleId, () => {
       ],
     },
   ])('$method()', ({ method, returnArgs, statementFixes }) => {
-    it.each(statementFixes)('$name', expectFix);
+    it('applies exact statement fixes and is idempotent', async () => {
+      await expectFixCases(statementFixes);
+    });
 
     const noFixCases: Array<ReportCase> = [
       {
@@ -491,7 +513,9 @@ describe(ruleId, () => {
       },
     ];
 
-    it.each(fixCases)('$name', expectFix);
+    it('applies exact safe fixes and is idempotent', async () => {
+      await expectFixCases(fixCases);
+    });
 
     const noFixCases = [
       {
