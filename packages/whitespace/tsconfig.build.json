@@ -1,0 +1,13 @@
+{
+  "extends": "@mkaradeniz/tsconfig",
+  "compilerOptions": {
+    "allowImportingTsExtensions": false,
+    "noEmit": false,
+    "outDir": "dist",
+    "rewriteRelativeImportExtensions": true,
+    "sourceMap": true,
+    "rootDir": "."
+  },
+  "exclude": ["tests/**/*.ts", "*.config.ts", "dist"],
+  "include": ["index.ts", "internal/**/*.ts", "rules/**/*.ts"]
+}

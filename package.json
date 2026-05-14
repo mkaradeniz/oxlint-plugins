@@ -1,0 +1,32 @@
+{
+  "name": "@mkaradeniz/oxlint-plugins",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Workspace for Oxlint plugins.",
+  "license": "MIT",
+  "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "TURBO_TELEMETRY_DISABLED=1 turbo run build",
+    "clean": "TURBO_TELEMETRY_DISABLED=1 turbo run clean && rimraf .turbo node_modules",
+    "format": "TURBO_TELEMETRY_DISABLED=1 turbo run format",
+    "lint": "TURBO_TELEMETRY_DISABLED=1 turbo run lint",
+    "pack:check": "TURBO_TELEMETRY_DISABLED=1 turbo run pack:check",
+    "pack:dry-run": "TURBO_TELEMETRY_DISABLED=1 turbo run pack:dry-run",
+    "test": "TURBO_TELEMETRY_DISABLED=1 turbo run test",
+    "test:coverage": "TURBO_TELEMETRY_DISABLED=1 turbo run test:coverage",
+    "typecheck": "TURBO_TELEMETRY_DISABLED=1 turbo run typecheck",
+    "verify": "pnpm run typecheck && pnpm run test:coverage && pnpm run lint && pnpm run pack:check && pnpm run pack:dry-run"
+  },
+  "devDependencies": {
+    "rimraf": "catalog:",
+    "turbo": "^2.9.12"
+  },
+  "engines": {
+    "node": ">=24.12.0",
+    "pnpm": ">=10.28.0"
+  },
+  "packageManager": "pnpm@10.28.0"
+}

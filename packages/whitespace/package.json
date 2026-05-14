@@ -1,0 +1,75 @@
+{
+  "name": "@mkaradeniz/oxlint-plugin-whitespace",
+  "version": "1.0.0",
+  "description": "Oxlint plugin for opinionated whitespace rules.",
+  "keywords": [
+    "lint",
+    "oxlint",
+    "oxlint-plugin",
+    "whitespace"
+  ],
+  "homepage": "https://github.com/mkaradeniz/oxlint-plugins/tree/main/packages/whitespace#readme",
+  "bugs": {
+    "url": "https://github.com/mkaradeniz/oxlint-plugins/issues"
+  },
+  "license": "MIT",
+  "author": "Max Karadeniz <max.karadeniz@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mkaradeniz/oxlint-plugins.git",
+    "directory": "packages/whitespace"
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "rimraf dist && tsc -p tsconfig.build.json",
+    "clean": "rimraf dist",
+    "format": "oxfmt",
+    "lint": "oxlint . --deny-warnings",
+    "pack:check": "pnpm run build && publint --pack pnpm && attw --pack . --profile esm-only",
+    "pack:dry-run": "pnpm pack --dry-run",
+    "prepack": "pnpm run build",
+    "test": "vitest run tests",
+    "test:coverage": "c8 --reporter=text --include='index.ts' --include='rules/**/*.ts' --exclude='tests/**' vitest run tests",
+    "typecheck": "tsgo -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@oxlint/plugins": "catalog:"
+  },
+  "devDependencies": {
+    "@mkaradeniz/oxfmt-config": "workspace:*",
+    "@mkaradeniz/oxlint-config": "workspace:*",
+    "@mkaradeniz/tsconfig": "workspace:*",
+    "@arethetypeswrong/cli": "catalog:",
+    "@types/node": "catalog:",
+    "@typescript/native-preview": "catalog:",
+    "c8": "catalog:",
+    "oxfmt": "catalog:",
+    "oxlint": "catalog:",
+    "publint": "catalog:",
+    "rimraf": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  },
+  "engines": {
+    "node": ">=22.18.0"
+  },
+  "packageManager": "pnpm@10.28.0"
+}

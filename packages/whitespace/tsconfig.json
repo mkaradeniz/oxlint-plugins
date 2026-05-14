@@ -1,0 +1,4 @@
+{
+  "extends": "@mkaradeniz/tsconfig",
+  "include": ["index.ts", "internal/**/*.ts", "rules/**/*.ts", "tests/**/*.ts", "*.config.ts"]
+}
