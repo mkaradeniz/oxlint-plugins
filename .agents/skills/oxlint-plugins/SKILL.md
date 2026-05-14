@@ -17,4 +17,4 @@ description: Publish the oxlint-plugins monorepo packages.
    - Workflow filename: `publish.yml`
    - Environment: `npm-publish`
 
-Only `packages/whitespace` and `packages/react-structure` publish. Do not use npm tokens; publish via GitHub Actions OIDC.
+Only `packages/whitespace` and `packages/react-structure` publish. Their runtime dependency fields must use real npm versions, never `catalog:` or `workspace:`. Do not use npm tokens; publish via GitHub Actions OIDC.

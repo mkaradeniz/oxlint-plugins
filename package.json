@@ -10,6 +10,7 @@
   ],
   "scripts": {
     "build": "TURBO_TELEMETRY_DISABLED=1 turbo run build",
+    "check:publish-manifests": "node scripts/check-publish-manifests.mjs",
     "clean": "TURBO_TELEMETRY_DISABLED=1 turbo run clean && rimraf .turbo node_modules",
     "format": "TURBO_TELEMETRY_DISABLED=1 turbo run format",
     "lint": "TURBO_TELEMETRY_DISABLED=1 turbo run lint",
@@ -18,7 +19,7 @@
     "test": "TURBO_TELEMETRY_DISABLED=1 turbo run test",
     "test:coverage": "TURBO_TELEMETRY_DISABLED=1 turbo run test:coverage",
     "typecheck": "TURBO_TELEMETRY_DISABLED=1 turbo run typecheck",
-    "verify": "pnpm run typecheck && pnpm run test:coverage && pnpm run lint && pnpm run pack:check && pnpm run pack:dry-run"
+    "verify": "pnpm run typecheck && pnpm run test:coverage && pnpm run lint && pnpm run check:publish-manifests && pnpm run pack:check && pnpm run pack:dry-run"
   },
   "devDependencies": {
     "rimraf": "catalog:",

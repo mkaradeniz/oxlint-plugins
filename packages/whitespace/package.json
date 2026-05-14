@@ -1,6 +1,6 @@
 {
   "name": "@mkaradeniz/oxlint-plugin-whitespace",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Oxlint plugin for opinionated whitespace rules.",
   "keywords": [
     "lint",
@@ -51,7 +51,7 @@
     "typecheck": "tsgo -p tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@oxlint/plugins": "catalog:"
+    "@oxlint/plugins": "^1.64.0"
   },
   "devDependencies": {
     "@mkaradeniz/oxfmt-config": "workspace:*",

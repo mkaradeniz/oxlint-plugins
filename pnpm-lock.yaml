@@ -9,9 +9,6 @@ catalogs:
     '@arethetypeswrong/cli':
       specifier: ^0.18.2
       version: 0.18.2
-    '@oxlint/plugins':
-      specifier: 1.64.0
-      version: 1.64.0
     '@types/node':
       specifier: ^25.7.0
       version: 25.7.0
@@ -66,7 +63,7 @@ importers:
   packages/react-structure:
     dependencies:
       '@oxlint/plugins':
-        specifier: 'catalog:'
+        specifier: ^1.64.0
         version: 1.64.0
     devDependencies:
       '@arethetypeswrong/cli':
@@ -114,7 +111,7 @@ importers:
   packages/whitespace:
     dependencies:
       '@oxlint/plugins':
-        specifier: 'catalog:'
+        specifier: ^1.64.0
         version: 1.64.0
     devDependencies:
       '@arethetypeswrong/cli':
