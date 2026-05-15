@@ -34,3 +34,5 @@ pnpm run changeset
 ```
 
 Docs-only, test-only, CI-only, and internal refactors do not need a changeset unless they change published package behavior. Merging the generated Version Packages PR publishes changed packages through GitHub Actions and npm Trusted Publishing.
+
+Releases use package-scoped tags such as `@mkaradeniz/oxlint-plugin-array@1.0.0`; do not create repo-wide `v*` release tags.

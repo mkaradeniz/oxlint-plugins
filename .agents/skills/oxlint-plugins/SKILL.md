@@ -20,4 +20,6 @@ description: Publish the oxlint-plugins monorepo packages.
 
 Publishable plugin runtime dependency fields must use real npm versions, never `catalog:` or `workspace:`. Do not use npm tokens for established packages; publish via GitHub Actions OIDC.
 
+Releases use package-scoped tags such as `@mkaradeniz/oxlint-plugin-array@1.0.0`. Do not create repo-wide `v*` release tags.
+
 New npm packages may require one initial bootstrap publish before npm Trusted Publishing can be configured for that package.
