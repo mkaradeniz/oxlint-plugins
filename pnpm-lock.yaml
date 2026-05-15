@@ -112,6 +112,52 @@ importers:
         specifier: 'catalog:'
         version: 4.1.6(@types/node@24.12.4)(vite@8.0.12(@types/node@24.12.4)(yaml@2.9.0))
 
+  packages/nullability:
+    dependencies:
+      '@oxlint/plugins':
+        specifier: ^1.64.0
+        version: 1.64.0
+    devDependencies:
+      '@arethetypeswrong/cli':
+        specifier: 'catalog:'
+        version: 0.18.2
+      '@mkaradeniz/oxfmt-config':
+        specifier: workspace:*
+        version: link:../oxfmt-config
+      '@mkaradeniz/oxlint-config':
+        specifier: workspace:*
+        version: link:../oxlint-config
+      '@mkaradeniz/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
+      '@types/node':
+        specifier: 'catalog:'
+        version: 24.12.4
+      '@typescript/native-preview':
+        specifier: 'catalog:'
+        version: 7.0.0-dev.20260515.1
+      c8:
+        specifier: 'catalog:'
+        version: 11.0.0
+      oxfmt:
+        specifier: 'catalog:'
+        version: 0.49.0
+      oxlint:
+        specifier: 'catalog:'
+        version: 1.64.0
+      publint:
+        specifier: 'catalog:'
+        version: 0.3.21
+      rimraf:
+        specifier: 'catalog:'
+        version: 6.1.3
+      typescript:
+        specifier: 'catalog:'
+        version: 6.0.3
+      vitest:
+        specifier: 'catalog:'
+        version: 4.1.6(@types/node@24.12.4)(vite@8.0.12(@types/node@24.12.4)(yaml@2.9.0))
+
   packages/oxfmt-config:
     dependencies:
       oxfmt:
