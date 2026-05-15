@@ -46,8 +46,8 @@
     "pack:check": "pnpm run build && publint --pack pnpm && attw --pack . --profile esm-only",
     "pack:dry-run": "pnpm pack --dry-run",
     "prepack": "pnpm run build",
-    "test": "vitest run tests --reporter=dot",
-    "test:coverage": "c8 --reporter=none --include='index.ts' --include='rules/**/*.ts' --exclude='tests/**' vitest run tests --reporter=dot",
+    "test": "vitest run tests --reporter=minimal",
+    "test:coverage": "c8 --reporter=none --include='index.ts' --include='rules/**/*.ts' --exclude='tests/**' vitest run tests --reporter=minimal",
     "typecheck": "tsgo -p tsconfig.json --noEmit"
   },
   "dependencies": {
