@@ -34,7 +34,7 @@
     "oxfmt": "catalog:",
     "oxlint": "catalog:",
     "rimraf": "catalog:",
-    "turbo": "^2.9.12"
+    "turbo": "^2.9.14"
   },
   "engines": {
     "node": ">=24.12.0",

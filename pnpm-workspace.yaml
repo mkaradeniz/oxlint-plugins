@@ -2,10 +2,10 @@ packages:
   - packages/*
 
 catalog:
-  '@oxlint/plugins': 1.64.0
   '@arethetypeswrong/cli': ^0.18.2
-  '@types/node': ^25.7.0
-  '@typescript/native-preview': 7.0.0-dev.20260513.1
+  '@oxlint/plugins': 1.64.0
+  '@types/node': ^24.12.4
+  '@typescript/native-preview': 7.0.0-dev.20260515.1
   c8: ^11.0.0
   oxfmt: ^0.49.0
   oxlint: ^1.63.0
