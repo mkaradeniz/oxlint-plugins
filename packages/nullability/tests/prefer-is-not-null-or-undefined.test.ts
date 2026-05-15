@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, it } from 'vitest';
+import { afterAll, describe, expect, it } from 'vitest';
 
 import {
   cleanupFixtures,
@@ -96,9 +96,9 @@ const expectFixCases = async (cases: Array<FixCase>) => {
   await expectFixtureDiagnostics(fixture, 0);
 };
 
-afterEach(cleanupFixtures);
+afterAll(cleanupFixtures);
 
-describe(ruleId, () => {
+describe.concurrent(ruleId, () => {
   describe('annotation-aware truthiness gates', () => {
     it('reports nullable identifiers across control-flow gates without fixes when the import is missing', async () => {
       await expectNoFixCases([
