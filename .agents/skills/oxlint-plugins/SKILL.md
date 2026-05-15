@@ -5,18 +5,19 @@ description: Publish the oxlint-plugins monorepo packages.
 
 # Oxlint Plugins Publishing
 
-1. Bump versions in `packages/whitespace/package.json` and `packages/react-structure/package.json`.
-2. Run `pnpm install`, then `pnpm run verify`.
-3. Commit the version bump and push `main`.
-4. Wait for GitHub CI on `main` to pass before creating a release:
-   `gh run list --repo mkaradeniz/oxlint-plugins --branch main --workflow CI --limit 1`
-5. Create or confirm the publish environment:
+1. For every user-facing plugin behavior change, run `pnpm run changeset` and choose the changed package plus the semver bump.
+2. Do not add a changeset for docs-only, test-only, CI-only, or internal refactor changes unless published package behavior changes.
+3. Run `pnpm install`, then `pnpm run verify`.
+4. Commit the change and push `main`.
+5. The `publish.yml` workflow opens or updates a `chore(release): version packages` PR when changesets exist.
+6. Merge the Version Packages PR to publish changed packages through npm Trusted Publishing.
+7. Create or confirm the publish environment:
    `gh api --method PUT repos/mkaradeniz/oxlint-plugins/environments/npm-publish`
-6. Create a GitHub release:
-   `gh release create vX.Y.Z --repo mkaradeniz/oxlint-plugins --title "vX.Y.Z" --notes "Release vX.Y.Z."`
-7. Ensure npm Trusted Publishing is configured per package:
+8. Ensure npm Trusted Publishing is configured per published package:
    - Repository: `mkaradeniz/oxlint-plugins`
    - Workflow filename: `publish.yml`
    - Environment: `npm-publish`
 
-Only `packages/whitespace` and `packages/react-structure` publish. Their runtime dependency fields must use real npm versions, never `catalog:` or `workspace:`. Do not use npm tokens; publish via GitHub Actions OIDC.
+Publishable plugin runtime dependency fields must use real npm versions, never `catalog:` or `workspace:`. Do not use npm tokens for established packages; publish via GitHub Actions OIDC.
+
+New npm packages may require one initial bootstrap publish before npm Trusted Publishing can be configured for that package.

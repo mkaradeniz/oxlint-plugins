@@ -19,6 +19,18 @@ pnpm run test:coverage
 pnpm run lint
 pnpm run pack:dry-run
 pnpm run verify
+pnpm run changeset
+pnpm run changeset:status
 ```
 
 Each plugin package is publishable on its own and keeps its own README, tests, and build output.
+
+## Releases
+
+This repo uses Changesets with independent package versions. Add a changeset for every user-facing plugin change:
+
+```sh
+pnpm run changeset
+```
+
+Docs-only, test-only, CI-only, and internal refactors do not need a changeset unless they change published package behavior. Merging the generated Version Packages PR publishes changed packages through GitHub Actions and npm Trusted Publishing.

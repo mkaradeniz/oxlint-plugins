@@ -11,18 +11,24 @@
   "scripts": {
     "build": "TURBO_TELEMETRY_DISABLED=1 turbo run build",
     "check:publish-manifests": "node scripts/check-publish-manifests.mjs",
+    "changeset": "changeset",
+    "changeset:status": "changeset status --verbose",
     "clean": "TURBO_TELEMETRY_DISABLED=1 turbo run clean && rimraf .turbo node_modules",
     "format": "TURBO_TELEMETRY_DISABLED=1 turbo run format",
     "lint": "TURBO_TELEMETRY_DISABLED=1 turbo run lint",
     "pack:check": "TURBO_TELEMETRY_DISABLED=1 turbo run pack:check",
     "pack:dry-run": "TURBO_TELEMETRY_DISABLED=1 turbo run pack:dry-run",
     "prepare": "husky",
+    "release": "pnpm run verify && changeset publish",
     "test": "TURBO_TELEMETRY_DISABLED=1 turbo run test",
     "test:coverage": "TURBO_TELEMETRY_DISABLED=1 turbo run test:coverage",
     "typecheck": "TURBO_TELEMETRY_DISABLED=1 turbo run typecheck",
-    "verify": "pnpm run typecheck && pnpm run test:coverage && pnpm run lint && pnpm run check:publish-manifests && pnpm run pack:check && pnpm run pack:dry-run"
+    "verify": "pnpm run typecheck && pnpm run test:coverage && pnpm run lint && pnpm run check:publish-manifests && pnpm run pack:check && pnpm run pack:dry-run",
+    "version-packages": "changeset version"
   },
   "devDependencies": {
+    "@changesets/changelog-github": "^0.7.0",
+    "@changesets/cli": "^2.31.0",
     "husky": "^9.1.7",
     "lint-staged": "^17.0.4",
     "oxfmt": "catalog:",
