@@ -78,6 +78,26 @@ const transparentExpressionTypes = new Set([
   'TSTypeAssertion',
 ]);
 
+const likelyArrayReceiverNames = new Set([
+  'arr',
+  'array',
+  'arrays',
+  'children',
+  'cols',
+  'columns',
+  'elements',
+  'entries',
+  'ids',
+  'items',
+  'list',
+  'lists',
+  'nodes',
+  'queue',
+  'stack',
+  'rows',
+  'values',
+]);
+
 const getWrappedExpression = (node: ESTree.Expression): ESTree.Expression | null => {
   if (
     node.type === 'ChainExpression' ||
@@ -208,6 +228,36 @@ const isSafeAssignableReceiver = (node: ESTree.Expression): boolean => {
   return object.type === 'ThisExpression' || object.type === 'Identifier' || isSafeAssignableReceiver(object);
 };
 
+const getReceiverName = (node: ESTree.Expression): string | null => {
+  const expression = stripTransparentExpression(node);
+
+  if (expression.type === 'Identifier') {
+    return expression.name;
+  }
+
+  if (expression.type === 'MemberExpression') {
+    return getStaticPropertyName(expression);
+  }
+
+  return null;
+};
+
+const isLikelyArrayReceiver = (node: ESTree.Expression) => {
+  const name = getReceiverName(node);
+
+  if (name === null) {
+    return false;
+  }
+
+  return (
+    likelyArrayReceiverNames.has(name) ||
+    name.endsWith('Array') ||
+    name.endsWith('Arrays') ||
+    name.endsWith('List') ||
+    name.endsWith('Lists')
+  );
+};
+
 const isSafeReadReceiver = (node: ESTree.Expression): boolean => {
   const expression = stripTransparentExpression(node);
 
@@ -263,7 +313,13 @@ const getRenameFix = ({ info }: { info: MethodInfo }) => {
 };
 
 const getPushLikeStatementReplacement = ({ call, context, info }: FixInput) => {
-  if (!isDirectExpressionStatement(call) || info.computed || info.member.optional || !isSafeAssignableReceiver(info.member.object)) {
+  if (
+    !isDirectExpressionStatement(call) ||
+    info.computed ||
+    info.member.optional ||
+    !isSafeAssignableReceiver(info.member.object) ||
+    !isLikelyArrayReceiver(info.member.object)
+  ) {
     return null;
   }
 
@@ -297,7 +353,7 @@ const getPopLikeReplacement = ({ call, context, info }: FixInput) => {
   const receiverText = sourceText.slice(info.member.object.range[0], info.member.object.range[1]);
 
   if (isDirectExpressionStatement(call)) {
-    if (info.member.optional || !isSafeAssignableReceiver(info.member.object)) {
+    if (info.member.optional || !isSafeAssignableReceiver(info.member.object) || !isLikelyArrayReceiver(info.member.object)) {
       return null;
     }
 
@@ -339,7 +395,7 @@ export const noMutationRule = defineRule({
       CallExpression(call) {
         const info = getMethodInfo(call);
 
-        if (info === null || isFreshTemporaryArray(info.member.object)) {
+        if (info === null || isFreshTemporaryArray(info.member.object) || !isLikelyArrayReceiver(info.member.object)) {
           return;
         }
 

@@ -249,11 +249,13 @@ describe(ruleId, () => {
       },
       {
         input: `const next = getItems().${call};\n`,
-        name: 'reports non-obviously-fresh function return receivers without a fix',
+        count: 0,
+        name: 'ignores non-obviously-array function return receivers',
       },
       {
         input: `const next = cache.get("items").${call};\n`,
-        name: 'reports nested non-obviously-fresh call receivers without a fix',
+        count: 0,
+        name: 'ignores non-obviously-array nested call receivers',
       },
     ];
 
@@ -418,7 +420,8 @@ describe(ruleId, () => {
       },
       {
         input: `getItems().${method}(${returnArgs});\n`,
-        name: 'reports complex receivers without duplicating evaluation',
+        count: 0,
+        name: 'ignores non-obviously-array complex receivers',
       },
       {
         input: `items?.${method}(${returnArgs});\n`,
@@ -431,6 +434,16 @@ describe(ruleId, () => {
       {
         input: `items["${method}"](${returnArgs});\n`,
         name: 'reports literal computed property access but leaves it unfixed',
+      },
+      {
+        input: `router.${method}("/g/" + slug);\n`,
+        count: 0,
+        name: 'ignores non-array object methods',
+      },
+      {
+        input: `analytics.${method}(event);\n`,
+        count: 0,
+        name: 'ignores analytics-style object methods',
       },
     ];
 
@@ -451,6 +464,14 @@ describe(ruleId, () => {
     it('ignores fresh temporary mutation', async () => {
       await expectCleanCases(freshCases.map(input => ({ input, name: input })));
     });
+  });
+
+  it('does not confuse similarly named object APIs with array mutation', async () => {
+    await expectClean(
+      `router.push(\`/g/\${encodeURIComponent(slug)}\${nextTab.path}\`);
+history.pushState(state, "", url);
+`,
+    );
   });
 
   describe.each([
@@ -528,7 +549,8 @@ describe(ruleId, () => {
       },
       {
         input: `getItems().${method}();\n`,
-        name: 'reports complex removal receivers without duplicating evaluation',
+        count: 0,
+        name: 'ignores non-obviously-array complex removal receivers',
       },
       {
         input: `state[getKey()].items.${method}();\n`,
@@ -585,11 +607,15 @@ describe(ruleId, () => {
       `state.groups.active.items.${method}(${sampleArgs});\n`,
       `items?.${method}(${sampleArgs});\n`,
       `items["${method}"](${sampleArgs});\n`,
-      `getItems().${method}(${sampleArgs});\n`,
+      { count: 0, input: `getItems().${method}(${sampleArgs});\n` },
     ];
 
     it('reports without a fix in statement and value contexts', async () => {
-      await expectNoFixCases(reportCases.map(input => ({ input, name: input })));
+      await expectNoFixCases(
+        reportCases.map(reportCase =>
+          typeof reportCase === 'string' ? { input: reportCase, name: reportCase } : { ...reportCase, name: reportCase.input },
+        ),
+      );
     });
 
     const freshCases = [
@@ -626,8 +652,8 @@ items.copyWithin(0, 1);
     await expectDiagnostics('const next = items.sort().map(project);\n', 1);
   });
 
-  it('reports array-like names syntactically because this rule is not type-aware', async () => {
-    await expectNoFix('queue.sort();\ntools.sort();\n', 2);
+  it('reports likely array-like names syntactically because this rule is not type-aware', async () => {
+    await expectNoFix('queue.sort();\nstack.sort();\n', 2);
   });
 
   it('does not report non-mutating methods, identifiers, property reads, or free calls', async () => {
