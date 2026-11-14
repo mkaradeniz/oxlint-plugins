@@ -8,6 +8,7 @@ Personal Oxlint plugins for TypeScript, React, and Next.js code style.
 - `@mkaradeniz/oxlint-plugin-react-structure`
 - `@mkaradeniz/oxlint-plugin-array`
 - `@mkaradeniz/oxlint-plugin-nullability`
+- `@mkaradeniz/oxlint-plugin-test-hygiene`
 
 Private workspace packages hold shared Oxlint, Oxfmt, and TypeScript config for local development.
 
